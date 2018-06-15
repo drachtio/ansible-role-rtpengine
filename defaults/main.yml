@@ -1,0 +1,12 @@
+---
+rtp_engine_version: master
+rtp_engine_recording_dir: /tmp
+rtp_engine_recording_method: pcap
+rtp_engine_recording_format: eth
+rtp_engine_udp_port: 12222
+rtp_engine_NG_port: 22222
+rtp_engine_cli_port: 127.0.0.1:9900
+rtp_engine_log_level: 6
+rtp_engine_min_port: 40000
+rtp_engine_max_port: 60000
+homer_protocol: udp

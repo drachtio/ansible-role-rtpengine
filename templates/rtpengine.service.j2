@@ -1,0 +1,44 @@
+
+[Unit]
+Description=rtpengine
+After=syslog.target network.target local-fs.target
+
+[Service]
+; service
+Type=forking
+ExecStart=/usr/local/bin/rtpengine \
+--interface {{ ansible_default_ipv4.address }}!{{ inventory_hostname }} \
+--listen-ng={{ rtp_engine_NG_port }} \
+--listen-udp={{ rtp_engine_udp_port }} \
+--listen-cli={{ rtp_engine_cli_port }} \
+--pidfile /var/run/rtpengine.pid \
+--port-min {{ rtp_engine_min_port }} \
+--port-max {{ rtp_engine_max_port }} \
+--recording-dir {{ rtp_engine_recording_dir }} \
+--recording-method {{ rtp_engine_recording_method }} \
+--recording-format {{ rtp_engine_recording_format }} \
+--log-level {{ rtp_engine_log_level }} \
+--homer={{ homer_hostport }} \
+--homer-protocol={{ homer_protocol }} \
+--homer-id={{ homer_id }} \
+--delete-delay 0
+PIDFile=/var/run/rtpengine.pid
+TimeoutSec=15s
+Restart=always
+; exec
+User=root
+Group=daemon
+LimitCORE=infinity
+LimitNOFILE=100000
+LimitNPROC=60000
+;LimitSTACK=240
+LimitRTPRIO=infinity
+LimitRTTIME=7000000
+IOSchedulingClass=realtime
+IOSchedulingPriority=2
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=89
+UMask=0007
+
+[Install]
+WantedBy=multi-user.target

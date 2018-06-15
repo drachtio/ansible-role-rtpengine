@@ -1,0 +1,58 @@
+---
+
+- name: Update apt-cache
+  apt: update_cache=yes 
+
+- name: Install build tools and dependencies
+  apt: name={{ item }} state=latest
+  with_items:
+    - 'gcc'
+    - 'g++'
+    - 'make'
+    - 'build-essential'
+    - 'git'
+    - 'iptables-dev'
+    - 'libavfilter-dev'
+    - 'libevent-dev'
+    - 'libpcap-dev'
+    - 'libxmlrpc-core-c3-dev'
+    - 'markdown'
+    - 'libjson-glib-dev'
+    - 'libmysqlclient-dev'
+    - 'libhiredis-dev'
+    - 'libssl-dev'
+    - 'libcurl4-openssl-dev'
+
+
+- name: make source directory writeable
+  file: path=/usr/local/src state=directory mode=0777
+
+- name: check out rtpengine 
+  git: repo=https://github.com/sipwise/rtpengine.git
+    dest=/usr/local/src/rtpengine
+    version={{rtp_engine_version}}
+    depth=50
+    accept_hostkey=yes
+    force=yes
+  become: no
+
+- name: build rtpengine 
+  shell: make chdir=/usr/local/src/rtpengine/daemon
+  become: no
+
+- name: create link in /usr/local/bin 
+  file: path=/usr/local/bin/rtpengine src=/usr/local/src/rtpengine/daemon/rtpengine state=link
+
+- name: Create systemd unit file
+  template:
+    src: rtpengine.service.j2
+    dest: /etc/systemd/system/rtpengine.service
+    mode: 0644
+    owner: root
+    group: root
+
+- name: systemctl daemon-reload
+  shell: systemctl daemon-reload
+  
+- name: (re)start rtpengine
+  service: name=rtpengine enabled=yes state=restarted
