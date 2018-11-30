@@ -18,10 +18,7 @@ ExecStart=/usr/local/bin/rtpengine \
 --recording-method {{ rtp_engine_recording_method }} \
 --recording-format {{ rtp_engine_recording_format }} \
 --log-level {{ rtp_engine_log_level }} \
---homer={{ homer_hostport }} \
---homer-protocol={{ homer_protocol }} \
---homer-id={{ homer_id }} \
---delete-delay 0
+--delete-delay 1
 PIDFile=/var/run/rtpengine.pid
 TimeoutSec=15s
 Restart=always

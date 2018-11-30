@@ -1,5 +1,5 @@
 ---
-rtp_engine_version: master
+rtp_engine_version:   
 rtp_engine_recording_dir: /tmp
 rtp_engine_recording_method: pcap
 rtp_engine_recording_format: eth

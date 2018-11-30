@@ -18,11 +18,9 @@
     - 'libxmlrpc-core-c3-dev'
     - 'markdown'
     - 'libjson-glib-dev'
-    - 'libmysqlclient-dev'
     - 'libhiredis-dev'
     - 'libssl-dev'
     - 'libcurl4-openssl-dev'
-
 
 - name: make source directory writeable
   file: path=/usr/local/src state=directory mode=0777
@@ -37,7 +35,7 @@
   become: no
 
 - name: build rtpengine 
-  shell: make chdir=/usr/local/src/rtpengine/daemon
+  shell: make with_transcoding=no chdir=/usr/local/src/rtpengine/daemon
   become: no
 
 - name: create link in /usr/local/bin 

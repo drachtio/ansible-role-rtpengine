@@ -52,7 +52,6 @@ protocol to use for homer
 
 ## Example playbook
 ```
----
 - hosts: all
   become: yes
   roles:
