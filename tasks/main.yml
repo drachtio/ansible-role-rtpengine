@@ -4,23 +4,12 @@
   apt: update_cache=yes 
 
 - name: Install build tools and dependencies
-  apt: name={{ item }} state=latest
-  with_items:
-    - 'gcc'
-    - 'g++'
-    - 'make'
-    - 'build-essential'
-    - 'git'
-    - 'iptables-dev'
-    - 'libavfilter-dev'
-    - 'libevent-dev'
-    - 'libpcap-dev'
-    - 'libxmlrpc-core-c3-dev'
-    - 'markdown'
-    - 'libjson-glib-dev'
-    - 'libhiredis-dev'
-    - 'libssl-dev'
-    - 'libcurl4-openssl-dev'
+  apt: 
+    name: ['gcc', 'g++', 'make', 'build-essential', 'git', 'iptables-dev', 'libavfilter-dev', 'libavcodec-dev', 'libswresample-dev',
+        'libevent-dev', 'libpcap-dev', 'libxmlrpc-core-c3-dev', 'markdown', 'libjson-glib-dev',
+        'libhiredis-dev', 'libssl-dev', 'libcurl4-openssl-dev', 'gperf', 'libspandsp-dev',
+        'default-libmysqlclient-dev']
+    state: latest
 
 - name: make source directory writeable
   file: path=/usr/local/src state=directory mode=0777
@@ -35,7 +24,7 @@
   become: no
 
 - name: build rtpengine 
-  shell: make with_transcoding=no chdir=/usr/local/src/rtpengine/daemon
+  shell: make with_transcoding=yes chdir=/usr/local/src/rtpengine/daemon
   become: no
 
 - name: create link in /usr/local/bin 
