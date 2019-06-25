@@ -1,5 +1,5 @@
 ---
-rtp_engine_version: mr7.2.1.4
+rtp_engine_version: mr7.3.1.2
 rtp_engine_recording_dir: /tmp
 rtp_engine_recording_method: pcap
 rtp_engine_recording_format: eth
