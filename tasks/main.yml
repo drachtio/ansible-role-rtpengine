@@ -5,7 +5,7 @@
 
 - name: Install build tools and dependencies
   apt: 
-    name: ['gcc', 'g++', 'make', 'build-essential', 'git', 'iptables-dev', 'libavfilter-dev', 'libavcodec-dev', 'libswresample-dev',
+    name: ['gcc', 'g++', 'make', 'cmake', 'build-essential', 'git', 'iptables-dev', 'libavfilter-dev', 'libavcodec-dev', 'libswresample-dev',
         'libevent-dev', 'libpcap-dev', 'libxmlrpc-core-c3-dev', 'markdown', 'libjson-glib-dev',
         'libhiredis-dev', 'libssl-dev', 'libcurl4-openssl-dev', 'gperf', 'libspandsp-dev',
         'default-libmysqlclient-dev']
@@ -13,6 +13,18 @@
 
 - name: make source directory writeable
   file: path=/usr/local/src state=directory mode=0777
+
+- name: checkout bcg729 encoder/decoder
+  git: repo=https://github.com/BelledonneCommunications/bcg729.git
+    dest=/usr/local/src/bcg729
+    version=master
+    depth=50
+    accept_hostkey=yes
+    force=yes
+  become: no
+
+- name: build bcg729 
+  shell: cmake . -DCMAKE_INSTALL_PREFIX=/usr && make && make install chdir=/usr/local/src/bcg729
 
 - name: check out rtpengine 
   git: repo=https://github.com/sipwise/rtpengine.git
