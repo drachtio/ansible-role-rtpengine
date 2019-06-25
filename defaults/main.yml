@@ -10,4 +10,4 @@ rtp_engine_log_level: 6
 rtp_engine_min_port: 40000
 rtp_engine_max_port: 60000
 homer_protocol: udp
-cloud: none
+cloud_provider: none
