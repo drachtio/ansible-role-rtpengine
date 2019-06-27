@@ -65,8 +65,8 @@
 - name: (re)start rtpengine
   service: name=rtpengine enabled=yes state=restarted
 
-  - name: remove source code
-    file: 
-      path: /usr/local/src/rtpengine
-      state: absent
-    when: remove_source|bool
+- name: remove source code
+  file: 
+    path: /usr/local/src/rtpengine
+    state: absent
+  when: remove_source|bool
