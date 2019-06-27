@@ -47,11 +47,9 @@
   become: no
 
 - name: build rtpengine 
-  shell: make with_transcoding=yes chdir=/usr/local/src/rtpengine/daemon
-  become: no
-
-- name: create link in /usr/local/bin 
-  file: path=/usr/local/bin/rtpengine src=/usr/local/src/rtpengine/daemon/rtpengine state=link
+  shell: make with_transcoding=yes install 
+  args: 
+    chdir: /usr/local/src/rtpengine/daemon
 
 - name: Create systemd unit file
   template:
@@ -66,3 +64,9 @@
   
 - name: (re)start rtpengine
   service: name=rtpengine enabled=yes state=restarted
+
+  - name: remove source code
+    file: 
+      path: /usr/local/src/rtpengine
+      state: absent
+    when: remove_source|bool

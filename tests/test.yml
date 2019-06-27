@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
   remote_user: root
+  vars:
+    - remove_source: true
   roles:
     - ansible-role-rtpengine
