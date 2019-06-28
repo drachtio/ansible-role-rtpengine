@@ -50,7 +50,7 @@
   shell: make with_transcoding=yes /usr/local/src/rtpengine/daemon
 
 - name: install rtpengine
-  shell: cp /usr/local/src/rtpengine/rtpengine /usr/local/bin
+  shell: cp /usr/local/src/rtpengine/daemon/rtpengine /usr/local/bin
 
 - name: Create systemd unit file
   template:
