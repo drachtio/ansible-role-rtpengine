@@ -12,11 +12,11 @@ ExecStartPre=/bin/sh -c 'systemctl set-environment PUBLIC_IP=`curl -s http://169
 ExecStart=/usr/local/bin/rtpengine --interface ${LOCAL_IP}!${PUBLIC_IP} \
 {% elif 'gcp' == cloud_provider %}
 ExecStartPre=/bin/sh -c 'systemctl set-environment LOCAL_IP=`curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/ip`'
-ExecStartPre=/bin/sh -c 'systemctl set-environment LOCAL_IP=`curl -s -H "Metadata-Flavor: Google" http://metadata/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip`'
+ExecStartPre=/bin/sh -c 'systemctl set-environment PUBLIC_IP=`curl -s -H "Metadata-Flavor: Google" http://metadata/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip`'
 ExecStart=/usr/local/bin/rtpengine --interface ${LOCAL_IP}!${PUBLIC_IP} \
 {% elif 'azure' == cloud_provider %}
 ExecStartPre=/bin/sh -c 'systemctl set-environment LOCAL_IP=`curl -s -H "Metadata:true" http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/privateIpAddress?api-version=2017-08-01&format=text`'
-ExecStartPre=/bin/sh -c 'systemctl set-environment LOCAL_IP=`curl -s -H "Metadata:true" http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/publicIpAddress?api-version=2017-08-01&format=text`'
+ExecStartPre=/bin/sh -c 'systemctl set-environment PUBLIC_IP=`curl -s -H "Metadata:true" http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/publicIpAddress?api-version=2017-08-01&format=text`'
 ExecStart=/usr/local/bin/rtpengine --interface ${LOCAL_IP}!${PUBLIC_IP} \
 {% else %}
 ExecStart=/usr/local/bin/rtpengine --interface {{ ansible_default_ipv4.address }}!{{ inventory_hostname }} \
