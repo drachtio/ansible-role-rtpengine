@@ -5,7 +5,8 @@
 
 - name: Install build tools and dependencies
   apt: 
-    name: ['gcc', 'g++', 'make', 'cmake', 'build-essential', 'git', 'iptables-dev', 'libavfilter-dev', 'libavcodec-dev', 'libswresample-dev',
+    name: ['gcc', 'g++', 'make', 'cmake', 'build-essential', 'git', 'libxtables-dev',
+        'libip6tc-dev', 'libip4tc-dev', 'libiptc-dev', 'libavfilter-dev', 'libavcodec-dev', 'libswresample-dev',
         'libevent-dev', 'libpcap-dev', 'libxmlrpc-core-c3-dev', 'markdown', 'libjson-glib-dev',
         'libhiredis-dev', 'libssl-dev', 'libcurl4-openssl-dev', 'gperf', 'libspandsp-dev']
     state: latest
