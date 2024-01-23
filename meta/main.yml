@@ -1,0 +1,38 @@
+---
+# Ansible Role Metadata
+# For complete information about all available options:
+# https://galaxy.ansible.com/docs/contributing/creating_role.html#role-metadata
+
+galaxy_info:
+  # (Required) Authoring and licensing information
+  author: Kevin Nguyen
+  description: Example Ansible Role used for demo purposes
+  company: Red Hat
+  license: GPLv3
+
+  # (Required) Ansible Role requires minimum version of ansible-core
+  min_ansible_version: '2.11'
+
+  # (Optional) Ansible Role issue tracker (GitHub only)
+  issue_tracker_url: https://github.com/KevinAtLeap/ansible-role-rtpengine.git/issues
+  github_branch: master
+
+  # (Optional) Ansible Role has these Ansible Galaxy tags:
+  # https://galaxy.ansible.com/api/v1/tags/
+  galaxy_tags: []
+
+  # (Required) Ansible Role works on these platforms:
+  # https://galaxy.ansible.com/api/v1/platforms/
+  platforms:
+    - name: Windows
+      versions:
+        - all
+    - name: EL
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
